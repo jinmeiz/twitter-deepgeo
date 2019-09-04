@@ -27,7 +27,7 @@ def get_id_city_key(d):
             id_key = id_city_key[k][0]
             city_key = id_city_key[k][1]
     if id_key == None or city_key == None:
-        print "Unable to find tweet ID and city key; json =", d
+        print("Unable to find tweet ID and city key; json ="), d
         raise SystemExit
 
     return id_key, city_key

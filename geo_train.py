@@ -100,37 +100,37 @@ random.seed(cf.seed)
 np.random.seed(cf.seed)
 
 #load raw train and valid data and labels
-print "Loading train and valid labels..."
+print("Loading train and valid labels...")
 train_label = load_label(cf.train_label, cf)
 valid_label = load_label(cf.valid_label, cf)
 
-print "Loading train and valid data..."
+print("Loading train and valid data...")
 train_data = load_data(cf.train_data, train_label, True, cf)
 valid_data = load_data(cf.valid_data, valid_label, False, cf)
 
 #collect vocab and classes
-print "Collecting text vocab..."
+print("Collecting text vocab...")
 vocabxid, idxvocab, _ = get_vocab(train_data, "text", "char", cf.word_minfreq)
-print "Collecting time zone vocab..."
+print("Collecting time zone vocab...")
 tzxid, _, _ = get_vocab(train_data, "timezone", "word", 0)
-print "Collecting location vocab..."
+print("Collecting location vocab...")
 locxid, _, _ = get_vocab(train_data, "location", "char", cf.word_minfreq)
-print "Collecting description vocab..."
+print("Collecting description vocab...")
 descxid, _, _ = get_vocab(train_data, "description", "char", cf.word_minfreq)
-print "Collecting name vocab..."
+print("Collecting name vocab...")
 namexid, _, _ = get_vocab(train_data, "name", "char", cf.word_minfreq)
-print "Collecting class labels..."
+print("Collecting class labels...")
 classes = get_classes(train_data, train_label)
 
 #clean text data
-print "Converting text to ids..."
+print("Converting text to ids...")
 train_len_x, train_miss_y, train_len_loc, train_len_desc, train_len_name = clean_data(train_data, train_label, \
     vocabxid, tzxid, locxid, descxid, namexid, classes, cf)
 valid_len_x, valid_miss_y, valid_len_loc, valid_len_desc, valid_len_name = clean_data(valid_data, valid_label, \
     vocabxid, tzxid, locxid, descxid, namexid, classes, cf)
 
 #Sorting data based on length
-print "Sorting data based on tweet length..."
+print("Sorting data based on tweet length...")
 train_data = sorted(train_data, key=lambda item: len(item["x"]))
 valid_data = sorted(valid_data, key=lambda item: len(item["x"]))
 
