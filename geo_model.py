@@ -45,11 +45,11 @@ class TGP(object):
 
         #embedding lookup
         inputs = tf.nn.embedding_lookup(emb, x)
-        inputs_rev = tf.reverse(inputs, [False, True, False])
+        inputs_rev = tf.reverse(inputs, [1])
 
         #transform sent input from [batch_size,sent_len,hidden_size] to [sent_len,batch_size,hidden_size]
-        inputs_s = [tf.squeeze(input_, [1]) for input_ in tf.split(1, maxlen, inputs)]
-        inputs_rev_s = [tf.squeeze(input_, [1]) for input_ in tf.split(1, maxlen, inputs_rev)]
+        inputs_s = [tf.squeeze(input_, [1]) for input_ in tf.split(inputs, maxlen, 1)]
+        inputs_rev_s = [tf.squeeze(input_, [1]) for input_ in tf.split(inputs_rev, maxlen, 1)]
 
         #run lstm and get hidden states
         with tf.variable_scope("lstm-forward"):
